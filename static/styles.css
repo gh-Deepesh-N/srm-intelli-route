@@ -1,0 +1,216 @@
+/* General reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Container styling */
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f4f4f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Header styling */
+h1 {
+    color: #4a90e2;
+    font-size: 2em;
+    margin-bottom: 10px;
+}
+
+p {
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Form styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    align-items: center;
+}
+
+/* Form group styling with label and input alignment */
+.form-group {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+/* Label styling */
+label {
+    flex: 1;
+    font-size: 1em;
+    color: #333;
+    text-align: right;
+}
+
+/* Select dropdown and button styling */
+select, button[type="button"] {
+    flex: 2;
+    padding: 8px;
+    font-size: 0.9em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: 100%;
+}
+
+/* Device Location Button styling */
+button[type="button"] {
+    background-color: #4caf50;
+    color: white;
+    cursor: pointer;
+}
+
+button[type="button"]:hover {
+    background-color: #3e8e41;
+}
+
+/* Submit button styling */
+.btn-submit {
+    background-color: #4a90e2;
+    color: white;
+    font-size: 1em;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.btn-submit:hover {
+    background-color: #357ABD;
+}
+
+/* Container styling */
+.container {
+    max-width: 600px;
+    margin: 50px auto;
+    padding: 30px;
+    background-color: #f4f4f9;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* Embedded map */
+iframe {
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+/* Chatbot Section */
+.chat-container {
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.chat-container h2 {
+    color: #4a90e2;
+    font-size: 1.5em;
+    margin-bottom: 15px;
+}
+
+/* Chatbox styling */
+#chat-box {
+    height: 300px;
+    overflow-y: auto;
+    background-color: #f9f9fc;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Messages */
+.message {
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 15px;
+    max-width: 75%;
+    word-wrap: break-word;
+}
+
+.message.user {
+    background-color: #4a90e2;
+    color: white;
+    text-align: right;
+    align-self: flex-end;
+    border-top-right-radius: 0;
+}
+
+.message.bot {
+    background-color: #e1e1e1;
+    color: black;
+    text-align: left;
+    align-self: flex-start;
+    border-top-left-radius: 0;
+}
+
+/* Input area styling */
+.input-area {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+input#user-input {
+    flex: 1;
+    padding: 10px;
+    font-size: 1em;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+}
+
+button {
+    padding: 10px 15px;
+    font-size: 1em;
+    border: none;
+    border-radius: 5px;
+    background-color: #4a90e2;
+    color: white;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #357ABD;
+}
+
+/* Voice Input Button */
+button[onclick="useVoiceInput()"] {
+    background-color: #ff9800;
+}
+
+button[onclick="useVoiceInput()"]:hover {
+    background-color: #e68a00;
+}
+
+/* Recommendations Button */
+.btn-recommendations {
+    margin-top: 10px;
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #4caf50;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-recommendations:hover {
+    background-color: #3e8e41;
+}
