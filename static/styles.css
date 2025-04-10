@@ -1,216 +1,325 @@
-/* General reset */
+/* General Styles */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: Arial, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
-/* Container styling */
-.container {
-    max-width: 500px;
-    margin: 50px auto;
-    padding: 30px;
-    background-color: #f4f4f9;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    text-align: center;
+body {
+    background: url("/static/images/IST-BANNER-3.jpg") no-repeat center center fixed;;
+    background-size: cover;
+    color: #333;
+    min-height: 100vh;
 }
 
-/* Header styling */
-h1 {
-    color: #4a90e2;
-    font-size: 2em;
-    margin-bottom: 10px;
-}
-
-p {
-    color: #555;
-    margin-bottom: 20px;
-}
-
-/* Form styling */
-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
-    align-items: center;
-}
-
-/* Form group styling with label and input alignment */
-.form-group {
-    display: flex;
-    align-items: center;
+.background-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
     width: 100%;
-    justify-content: space-between;
+    height: 100%;
+    z-index: -1;
+}
+
+/* Container Styles */
+.container {
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    position: relative;
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #2c3e50;
+}
+
+.header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 5px;
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    color: #00ffd0;
+    font-weight: 450;
+}
+
+/* Card Styles */
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
+.input-wrapper {
+    display: flex;
     gap: 10px;
 }
 
-/* Label styling */
-label {
-    flex: 1;
-    font-size: 1em;
-    color: #333;
-    text-align: right;
-}
-
-/* Select dropdown and button styling */
-select, button[type="button"] {
-    flex: 2;
-    padding: 8px;
-    font-size: 0.9em;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+.styled-select {
     width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: #f9f9f9;
+    transition: all 0.3s ease;
 }
 
-/* Device Location Button styling */
-button[type="button"] {
-    background-color: #4caf50;
-    color: white;
+.styled-select:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+    outline: none;
+}
+
+/* Button Styles */
+.btn-submit, .location-btn, .send-btn, .voice-btn, .btn-recommendations, .map-link, .download-btn {
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
     cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.3s ease;
 }
 
-button[type="button"]:hover {
-    background-color: #3e8e41;
-}
-
-/* Submit button styling */
 .btn-submit {
     background-color: #4a90e2;
     color: white;
-    font-size: 1em;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 20px;
+    width: 100%;
+    margin-top: 15px;
 }
 
 .btn-submit:hover {
     background-color: #357ABD;
+    transform: translateY(-2px);
 }
 
-/* Container styling */
-.container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 30px;
-    background-color: #f4f4f9;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+.pulse {
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+}
+
+.location-btn {
+    background-color: #2ecc71;
+    color: white;
+    white-space: nowrap;
+}
+
+.location-btn:hover {
+    background-color: #27ae60;
+}
+
+.send-btn {
+    background-color: #4a90e2;
+    color: white;
+}
+
+.voice-btn {
+    background-color: #e74c3c;
+    color: white;
+}
+
+.btn-recommendations {
+    background-color: #9b59b6;
+    color: white;
+    width: 100%;
+    margin-top: 15px;
+}
+
+.map-link {
+    display: block;
+    margin-top: 15px;
+    background-color: #3498db;
+    color: white;
+    text-decoration: none;
     text-align: center;
 }
 
-/* Embedded map */
-iframe {
-    border-radius: 10px;
-    margin-bottom: 20px;
+.download-btn {
+    background-color: #2ecc71;
+    color: white;
+    margin-left: 10px;
 }
 
-/* Chatbot Section */
+/* Chat Container */
 .chat-container {
     margin-top: 30px;
-    padding: 20px;
-    background-color: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.chat-container h2 {
-    color: #4a90e2;
-    font-size: 1.5em;
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     margin-bottom: 15px;
 }
 
-/* Chatbox styling */
+.bot-avatar {
+    font-size: 1.8rem;
+}
+
+.chat-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #2c3e50;
+}
+
 #chat-box {
     height: 300px;
     overflow-y: auto;
-    background-color: #f9f9fc;
+    background-color: #f5f7fa;
     padding: 15px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+    border-radius: 8px;
     margin-bottom: 15px;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    border: 1px solid #e0e0e0;
 }
 
-/* Messages */
 .message {
-    padding: 10px;
+    padding: 12px 15px;
     margin: 5px 0;
     border-radius: 15px;
-    max-width: 75%;
+    max-width: 80%;
     word-wrap: break-word;
+    line-height: 1.4;
+    position: relative;
 }
 
 .message.user {
     background-color: #4a90e2;
     color: white;
-    text-align: right;
     align-self: flex-end;
-    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
 }
 
 .message.bot {
-    background-color: #e1e1e1;
-    color: black;
-    text-align: left;
+    background-color: #ecf0f1;
+    color: #2c3e50;
     align-self: flex-start;
-    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
 }
 
-/* Input area styling */
+/* Input Area */
 .input-area {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+#user-input {
+    flex: 1;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+#user-input:focus {
+    border-color: #4a90e2;
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+    outline: none;
+}
+
+/* Directions Page Specific */
+.map-container {
+    padding: 0;
+    overflow: hidden;
+}
+
+.map-container iframe {
+    border-radius: 8px 8px 0 0;
+    border: none;
+}
+
+.directions-card h2, .audio-card h2 {
+    margin-bottom: 15px;
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-input#user-input {
-    flex: 1;
-    padding: 10px;
-    font-size: 1em;
-    border: 1px solid #ddd;
-    border-radius: 5px;
+.steps-list {
+    list-style-type: none;
 }
 
-button {
+.steps-list li {
     padding: 10px 15px;
-    font-size: 1em;
-    border: none;
-    border-radius: 5px;
-    background-color: #4a90e2;
-    color: white;
-    cursor: pointer;
+    margin-bottom: 8px;
+    background-color: #f5f7fa;
+    border-radius: 8px;
+    border-left: 4px solid #4a90e2;
 }
 
-button:hover {
-    background-color: #357ABD;
+.audio-player {
+    display: flex;
+    align-items: center;
+    gap: 15px;
 }
 
-/* Voice Input Button */
-button[onclick="useVoiceInput()"] {
-    background-color: #ff9800;
+audio {
+    flex: 1;
 }
 
-button[onclick="useVoiceInput()"]:hover {
-    background-color: #e68a00;
+/* Back Button */
+.back-button-container {
+    text-align: center;
+    margin-top: 20px;
 }
 
-/* Recommendations Button */
-.btn-recommendations {
-    margin-top: 10px;
-    padding: 10px 20px;
-    font-size: 1em;
-    background-color: #4caf50;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
+.icon {
+    font-size: 1.2em;
 }
 
-.btn-recommendations:hover {
-    background-color: #3e8e41;
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        padding: 15px;
+        margin: 15px auto;
+    }
+    
+    .input-wrapper {
+        flex-direction: column;
+    }
+    
+    .card {
+        padding: 20px;
+    }
 }

@@ -7,50 +7,68 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <div class="background-overlay"></div>
     <div class="container">
-        <h1>GPS Chatbot</h1>
-        <p>Select your origin and destination to get directions or interact with the chatbot below.</p>
+        <div class="header">
+            <h1>SRM intelli-Route</h1>
+            <p class="subtitle">Your Smart Campus navigation assistant</p>
+        </div>
 
-        <!-- Origin and Destination Form -->
-        <form action="{{ url_for('directions') }}" method="post">
-            <div class="form-group">
-                <label for="origin">Select Origin:</label>
-                <select id="origin" name="origin">
-                    <option value="">Use Current Location</option>
-                    {% for name, coords in destinations.items() %}
-                    <option value="{{ name }}">{{ name }}</option>
-                    {% endfor %}
-                </select>
-                <button type="button" onclick="getCurrentLocation()">Use Device Location</button>
-            </div>
-        
-            <div class="form-group">
-                <label for="destination">Select Destination:</label>
-                <select id="destination" name="destination" required>
-                    {% for name, coords in destinations.items() %}
-                    <option value="{{ name }}">{{ name }}</option>
-                    {% endfor %}
-                </select>
-            </div>
-        
-            <button type="submit" class="btn-submit">Get Directions</button>
-        </form>
-        
+        <!-- Changed form method from POST to GET -->
+        <div class="card">
+            <h2>Route Planner</h2>
+            <form action="{{ url_for('directions') }}" method="get">
+                <div class="form-group">
+                    <label for="origin">Origin:</label>
+                    <div class="input-wrapper">
+                        <select id="origin" name="origin" class="styled-select">
+                            <option value="">Use Current Location</option>
+                            {% for name, coords in destinations.items() %}
+                            <option value="{{ name }}">{{ name }}</option>
+                            {% endfor %}
+                        </select>
+                        <button type="button" class="location-btn" onclick="getCurrentLocation()">
+                            <span class="icon">📍</span> Use My Location
+                        </button>
+                    </div>
+                </div>
+            
+                <div class="form-group">
+                    <label for="destination">Destination:</label>
+                    <select id="destination" name="destination" required class="styled-select">
+                        {% for name, coords in destinations.items() %}
+                        <option value="{{ name }}">{{ name }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+            
+                <button type="submit" class="btn-submit pulse">
+                    <span class="icon">🚀</span> Get Directions
+                </button>
+            </form>
+        </div>
 
-        <!-- Chatbot Section -->
-        <div class="chat-container">
+        <div class="card chat-container">
             <h2>Chat with GPS Bot</h2>
+            <div class="chat-header">
+                <div class="bot-avatar">🤖</div>
+                <div class="chat-title">Navigation Assistant</div>
+            </div>
             <div id="chat-box"></div>
 
             <div class="input-area">
-                <input type="text" id="user-input" placeholder="Type your message here...">
-                <button onclick="sendMessage()">Send</button>
-                <button onclick="useVoiceInput()">🎤 Voice Input</button>
+                <input type="text" id="user-input" placeholder="Ask me anything about navigation...">
+                <button class="send-btn" onclick="sendMessage()">
+                    <span class="icon">✉️</span> Send
+                </button>
+                <button class="voice-btn" onclick="useVoiceInput()">
+                    <span class="icon">🎤</span> Voice
+                </button>
             </div>
 
-            <div>
-                <button class="btn-recommendations" onclick="getRecommendations()">Show Nearby Destinations</button>
-            </div>
+            <button class="btn-recommendations" onclick="getRecommendations()">
+                <span class="icon">🔍</span> Show Nearby Places
+            </button>
         </div>
     </div>
 
@@ -59,137 +77,118 @@
 
         // Automatically retrieve the user's current location
         function getCurrentLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition((position) => {
-            const lat = position.coords.latitude;
-            const lon = position.coords.longitude;
-            userLocation = `${lat},${lon}`;
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition((position) => {
+                    const lat = position.coords.latitude;
+                    const lon = position.coords.longitude;
+                    userLocation = `${lat},${lon}`;
 
-            // Update the select dropdown dynamically while keeping user input
-            const originSelect = document.getElementById("origin");
-            let optionExists = false;
+                    const originSelect = document.getElementById("origin");
+                    let optionExists = false;
 
-            for (let option of originSelect.options) {
-                if (option.value === userLocation) {
-                    optionExists = true;
-                    option.selected = true;
-                    break;
-                }
+                    for (let option of originSelect.options) {
+                        if (option.value === userLocation) {
+                            optionExists = true;
+                            option.selected = true;
+                            break;
+                        }
+                    }
+
+                    if (!optionExists) {
+                        let newOption = document.createElement("option");
+                        newOption.value = userLocation;
+                        newOption.text = "Current Location";
+                        newOption.selected = true;
+                        originSelect.appendChild(newOption);
+                    }
+
+                    alert(`Current location set: Latitude ${lat}, Longitude ${lon}`);
+                }, (error) => {
+                    alert("Error getting location: " + error.message);
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
             }
-
-            if (!optionExists) {
-                let newOption = document.createElement("option");
-                newOption.value = userLocation;
-                newOption.text = "Current Location";
-                newOption.selected = true;
-                originSelect.appendChild(newOption);
-            }
-
-            alert(`Current location set: Latitude ${lat}, Longitude ${lon}`);
-        }, (error) => {
-            alert("Error getting location: " + error.message);
-        });
-    } else {
-        alert("Geolocation is not supported by this browser.");
-    }
-}
-
+        }
 
         // Function to send messages via chatbot
         async function sendMessage() {
-    const userInput = document.getElementById("user-input").value;
-    if (!userInput) return;
+            const userInput = document.getElementById("user-input").value;
+            if (!userInput) return;
 
-    addMessage(userInput, "user");
-    document.getElementById("user-input").value = "";
+            addMessage(userInput, "user");
+            document.getElementById("user-input").value = "";
 
-    const response = await fetch('/chat', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: userInput })
-    });
+            const response = await fetch('/chat', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: userInput })
+            });
 
-    const data = await response.json();
-    addMessage(data.response, "bot");
+            const data = await response.json();
+            addMessage(data.response, "bot");
 
-    // Redirect if a URL is provided
-    if (data.redirect_url) {
-        // Create and submit a form dynamically
-        const form = document.createElement("form");
-        form.method = "POST";
-        form.action = data.redirect_url;
-        document.body.appendChild(form);
-        form.submit();
-    }
-}
-
-
+            // Modified redirect to use GET instead of POST
+            if (data.redirect_url) {
+                window.location.href = data.redirect_url; // Changed to simple GET redirect
+            }
+        }
 
         // Function to capture voice input
         async function useVoiceInput() {
-    addMessage("Listening for voice input...", "bot");
+            addMessage("Listening for voice input...", "bot");
 
-    try {
-        const response = await fetch('/voice_input', {
-            method: 'POST'
-        });
+            try {
+                const response = await fetch('/voice_input', {
+                    method: 'POST'
+                });
 
-        const data = await response.json();
+                const data = await response.json();
 
-        if (data.error) {
-            addMessage(data.error, "bot");
-        } else {
-            addMessage(data.message, "user");
+                if (data.error) {
+                    addMessage(data.error, "bot");
+                } else {
+                    addMessage(data.message, "user");
+                    const messageText = data.message.toLowerCase();
+                    
+                    let matchedDestination = null;
+                    let matchedOrigin = null;
+                    let matchedDestinationName = null;
 
-            // Extract user's voice message
-            const messageText = data.message.toLowerCase();
-            
-            let matchedDestination = null;
-            let matchedOrigin = null;
-            let matchedDestinationName = null;
+                    const destinationDropdown = document.getElementById("destination");
+                    for (let option of destinationDropdown.options) {
+                        if (messageText.includes(option.text.toLowerCase())) {
+                            matchedDestination = option.value;
+                            matchedDestinationName = option.text;
+                            break;
+                        }
+                    }
 
-            // Match the voice input with known destinations
-            const destinationDropdown = document.getElementById("destination");
-            for (let option of destinationDropdown.options) {
-                if (messageText.includes(option.text.toLowerCase())) {
-                    matchedDestination = option.value;
-                    matchedDestinationName = option.text;  // Save the readable name
-                    break;
+                    const originDropdown = document.getElementById("origin");
+                    for (let option of originDropdown.options) {
+                        if (messageText.includes(option.text.toLowerCase())) {
+                            matchedOrigin = option.value;
+                            break;
+                        }
+                    }
+
+                    if (matchedDestination) {
+                        document.getElementById("destination").value = matchedDestination;
+                        addMessage(`Navigating to ${matchedDestinationName}...`, "bot");
+                        setTimeout(() => {
+                            document.querySelector("form").submit(); // This now uses GET
+                        }, 2000);
+                    } else if (matchedOrigin) {
+                        document.getElementById("origin").value = matchedOrigin;
+                        addMessage(`Origin set to: ${messageText}`, "bot");
+                    } else {
+                        addMessage("Could not recognize a valid location. Please try again.", "bot");
+                    }
                 }
-            }
-
-            // Match the voice input with known origins
-            const originDropdown = document.getElementById("origin");
-            for (let option of originDropdown.options) {
-                if (messageText.includes(option.text.toLowerCase())) {
-                    matchedOrigin = option.value;
-                    break;
-                }
-            }
-
-            if (matchedDestination) {
-                document.getElementById("destination").value = matchedDestination;
-
-                // Show routing message
-                addMessage(`Navigating to ${matchedDestinationName}...`, "bot");
-
-                // Auto-submit form to redirect to Google Maps
-                setTimeout(() => {
-                    document.querySelector("form").submit();
-                }, 2000);
-            } else if (matchedOrigin) {
-                document.getElementById("origin").value = matchedOrigin;
-                addMessage(`Origin set to: ${messageText}`, "bot");
-            } else {
-                addMessage("Could not recognize a valid location. Please try again.", "bot");
+            } catch (error) {
+                addMessage("Failed to process voice input. Please try again.", "bot");
             }
         }
-    } catch (error) {
-        addMessage("Failed to process voice input. Please try again.", "bot");
-    }
-}
-
-
 
         // Function to fetch recommendations
         async function getRecommendations() {

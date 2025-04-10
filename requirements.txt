@@ -1,0 +1,8 @@
+Flask
+flask-session
+requests
+gTTS
+geopy
+fuzzywuzzy
+SpeechRecognition
+python-dotenv

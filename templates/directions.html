@@ -7,37 +7,58 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
+    <div class="background-overlay"></div>
     <div class="container">
-        <h1>Directions</h1>
+        <div class="header">
+            <h1>Your Route Details</h1>
+            <p class="subtitle">Follow these directions to reach your destination</p>
+        </div>
 
-        <!-- Embedded Map -->
-        <iframe
-            src="{{ embed_url }}"
-            width="100%"
-            height="400"
-            style="border:0;"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
-
-        <p><a href="{{ maps_url }}" target="_blank">Open directions in Google Maps</a></p>
+        <div class="card map-container">
+            <iframe
+                src="{{ embed_url }}"
+                width="100%"
+                height="400"
+                style="border:0;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+            <a href="{{ maps_url }}" target="_blank" class="map-link">
+                <span class="icon">🗺️</span> Open in Google Maps
+            </a>
+        </div>
         
-        <h2>Step-by-Step Directions:</h2>
-        <ul>
-            {% for step in steps %}
-            <li>{{ step | safe }}</li>
-            {% endfor %}
-        </ul>
+        <div class="card directions-card">
+            <h2><span class="icon">📝</span> Step-by-Step Directions:</h2>
+            <ul class="steps-list">
+                {% for step in steps %}
+                <li>{{ step | safe }}</li>
+                {% endfor %}
+            </ul>
+        </div>
         
-        <h2>Audio Directions:</h2>
-        <audio controls>
-            <source src="{{ url_for('static', filename='audio/directions.mp3') }}" type="audio/mpeg">
-            Your browser does not support the audio element.
-        </audio>
+        
+        <div class="card audio-card">
+            <h2><span class="icon">🔊</span> Audio Directions:</h2>
+            <div class="audio-player">
+                <audio controls>
+                    <source src="{{ url_for('static', filename='audio/directions.mp3') }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <button class="download-btn">
+                    <a href="{{ url_for('static', filename='audio/directions.mp3') }}" download="directions.mp3">
+                        <span class="icon">⬇️</span> Download
+                    </a>
+                </button>
+                
+            </div>
+        </div>
         
         <div class="back-button-container">
-            <a href="{{ url_for('index') }}" class="btn-submit">Back to Home</a>
+            <a href="{{ url_for('index') }}" class="btn-submit">
+                <span class="icon">🏠</span> Back to Home
+            </a>
         </div>
     </div>
 </body>
