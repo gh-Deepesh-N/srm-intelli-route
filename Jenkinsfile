@@ -6,15 +6,10 @@ pipeline {
         DOCKERHUB_USER = 'dockerdeepesh7'
         IMAGE_NAME = 'gps-chatbot'
         IMAGE_TAG = 'latest'
+        KUBECONFIG = "/var/lib/jenkins/.kube/config"
     }
 
     stages {
-        stage('Clone Repo') {
-            steps {
-                git 'https://github.com/gh-Deepesh-N/srm-intelli-route'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 sh 'docker build -t $DOCKERHUB_USER/$IMAGE_NAME:$IMAGE_TAG .'
