@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gps-chatbot
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gps-chatbot
+  template:
+    metadata:
+      labels:
+        app: gps-chatbot
+    spec:
+      containers:
+      - name: gps-chatbot
+        image: dockerdeepesh7/gps-chatbot:latest
+        ports:
+        - containerPort: 6003

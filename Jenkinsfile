@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')  // Jenkins secret ID
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub-creds')  // Secret ID in Jenkins
         DOCKERHUB_USER = 'dockerdeepesh7'
         IMAGE_NAME = 'gps-chatbot'
         IMAGE_TAG = 'latest'
@@ -11,7 +11,7 @@ pipeline {
     stages {
         stage('Clone Repo') {
             steps {
-                git 'https://github.com/gh-Deepesh-N/SRM_GeoMaps'  // Replace with your repo
+                git 'https://github.com/gh-Deepesh-N/srm-intelli-route'
             }
         }
 
@@ -30,6 +30,17 @@ pipeline {
         stage('Push Image') {
             steps {
                 sh 'docker push $DOCKERHUB_USER/$IMAGE_NAME:$IMAGE_TAG'
+            }
+        }
+
+        stage('Deploy to Kubernetes') {
+            steps {
+                sh '''
+                cd k8s
+                kubectl delete -f deployment.yaml || true
+                kubectl apply -f deployment.yaml
+                kubectl apply -f service.yaml
+                '''
             }
         }
     }
