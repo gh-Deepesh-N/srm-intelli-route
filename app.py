@@ -138,6 +138,7 @@ def voice_input():
             return jsonify({"error": "Could not process audio input"})
 
 if __name__ == '__main__':
+    print(f"API KEY being used: {GMAPS_API_KEY}")
     app.run(host='0.0.0.0', port=6003, debug=True)
 
     # app.run(host='0.0.0.0', port=6000, debug=True)
