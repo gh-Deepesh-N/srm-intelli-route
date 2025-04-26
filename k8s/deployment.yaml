@@ -17,3 +17,6 @@ spec:
         image: dockerdeepesh7/gps-chatbot:latest
         ports:
         - containerPort: 6003
+        env:
+        - name: GMAPS_API_KEY
+          value: "AIzaSyDCKAHNisordYQoxRIWv6x7sQjXUWdYr1Y"
